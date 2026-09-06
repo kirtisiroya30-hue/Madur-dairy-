@@ -3,15 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Mazdoori Khata â€” Labour Payment Register</title>
+<title>Mazdoori Khata &mdash; Labour Payment Register</title>
 <meta name="theme-color" content="#E8A33D">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Mazdoori Khata">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" href="icon-192.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -139,7 +137,7 @@
 
 <header>
   <h1>Mazdoori Khata</h1>
-  <p>Mahine-wise labour payment register â€” due tracking sahit</p>
+  <p>Mahine-wise labour payment register &mdash; due tracking sahit</p>
 </header>
 
 <!-- Month section -->
@@ -168,13 +166,13 @@
   </div>
 </div>
 
-<div class="readonly-banner" id="readonlyBanner" style="display:none;">ðŸ”’ Ye purana mahina hai â€” sirf dekhne ke liye, edit nahi ho sakta</div>
+<div class="readonly-banner" id="readonlyBanner" style="display:none;">&#x1F512; Ye purana mahina hai &mdash; sirf dekhne ke liye, edit nahi ho sakta</div>
 
 <!-- Actions -->
 <div class="top-actions">
   <button class="add-btn" id="addBtn">+ Naya Labour Add Karein</button>
-  <button class="btn-secondary" id="sharePdfBtn">ðŸ“¤ PDF Banayein aur Share Karein</button>
-  <button class="btn-newmonth" id="newMonthBtn">âžœ Agla Mahina Shuru Karein</button>
+  <button class="btn-secondary" id="sharePdfBtn">&#x1F4E4; PDF Banayein aur Share Karein</button>
+  <button class="btn-newmonth" id="newMonthBtn">&#x279C; Agla Mahina Shuru Karein</button>
   <div class="reset-link"><button id="resetBtn">Is mahine ki sab entries clear karein</button></div>
 </div>
 
@@ -182,9 +180,9 @@
 <div class="selection-bar" id="selectionBar">
   <div class="sel-count" id="selCount">Total dekhne ke liye checkbox tick karein</div>
   <div class="sel-stats">
-    <div class="sel-stat"><div class="label">Total Payment</div><div class="value dim" id="selTotal">â‚¹0</div></div>
-    <div class="sel-stat"><div class="label">Advance</div><div class="value adv dim" id="selAdv">â‚¹0</div></div>
-    <div class="sel-stat"><div class="label">Net Payment</div><div class="value net dim" id="selNet">â‚¹0</div></div>
+    <div class="sel-stat"><div class="label">Total Payment</div><div class="value dim" id="selTotal">&#8377;0</div></div>
+    <div class="sel-stat"><div class="label">Advance</div><div class="value adv dim" id="selAdv">&#8377;0</div></div>
+    <div class="sel-stat"><div class="label">Net Payment</div><div class="value net dim" id="selNet">&#8377;0</div></div>
   </div>
 </div>
 
@@ -204,11 +202,11 @@
           <th class="col-photo">Photo</th>
           <th class="col-num">Din</th>
           <th class="col-num">OT (ghante)</th>
-          <th class="col-num">Rate â‚¹</th>
-          <th class="col-num">OT Rate â‚¹</th>
+          <th class="col-num">Rate &#8377;</th>
+          <th class="col-num">OT Rate &#8377;</th>
           <th class="col-money">Total Payment</th>
-          <th class="col-money">Advance â‚¹</th>
-          <th class="col-due">Purana Due â‚¹</th>
+          <th class="col-money">Advance &#8377;</th>
+          <th class="col-due">Purana Due &#8377;</th>
           <th class="col-money">Net Payment</th>
           <th class="col-status">Status</th>
           <th class="col-remove"></th>
@@ -236,7 +234,6 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// â”€â”€ state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 let months = [];
 let viewIdx = 0;
 let selectedIds = new Set();
@@ -246,10 +243,9 @@ const STORAGE_KEY = 'labour-months-v2';
 const LEGACY_KEY  = 'labour-months';
 const hasCS = typeof window.storage !== 'undefined' && typeof window.storage.set === 'function';
 
-// â”€â”€ helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function uid(){ return 'e'+Date.now()+Math.random().toString(36).slice(2,6); }
 function num(v){ const n=parseFloat(v); return isNaN(n)?0:n; }
-function fmt(n){ return 'â‚¹'+n.toLocaleString('en-IN',{maximumFractionDigits:0}); }
+function fmt(n){ return '\u20B9'+n.toLocaleString('en-IN',{maximumFractionDigits:0}); }
 function fmtPdf(n){ return 'Rs '+n.toLocaleString('en-IN',{maximumFractionDigits:0}); }
 function esc(s){ return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
@@ -258,9 +254,7 @@ function todayStr(){
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
 function monthKey(dateStr){ return dateStr.slice(0,7); }
-function lastDayOfMonth(yyyy,mm){
-  return new Date(yyyy, mm, 0).getDate();
-}
+function lastDayOfMonth(yyyy,mm){ return new Date(yyyy, mm, 0).getDate(); }
 function defaultStartStr(){
   const d=new Date(); d.setDate(1);
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
@@ -271,12 +265,10 @@ function defaultEndStr(startStr){
   return y+'-'+String(m).padStart(2,'0')+'-'+String(last).padStart(2,'0');
 }
 function nextMonthStartStr(endStr){
-  // day after endStr
   const d=new Date(endStr); d.setDate(d.getDate()+1);
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
 function fmtDate(str){
-  // "2026-09-01" â†’ "1-9-2026"
   if(!str) return '';
   const [y,m,d]=str.split('-').map(Number);
   return d+'-'+m+'-'+y;
@@ -296,7 +288,6 @@ function calcTotal(e){
 }
 function calcNet(e){ return calcTotal(e)-num(e.advance)+num(e.previousDue); }
 
-// â”€â”€ storage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function sGet(k){
   if(hasCS){ try{ const r=await window.storage.get(k); return r?r.value:null; }catch(e){ return null; } }
   try{ return localStorage.getItem(k); }catch(e){ return null; }
@@ -309,12 +300,10 @@ async function save(){ await sSet(STORAGE_KEY, JSON.stringify(months)); }
 
 async function load(){
   let raw=await sGet(STORAGE_KEY);
-  // try legacy key
   if(!raw) raw=await sGet(LEGACY_KEY);
   if(raw){
     try{
       const parsed=JSON.parse(raw);
-      // migrate old format (had monthKey/label, no startDate/endDate)
       months=parsed.map(m=>{
         if(!m.startDate){
           const key=m.monthKey||monthKey(todayStr());
@@ -340,14 +329,12 @@ function findEntry(id){
   return m.entries.find(e=>e.id===id)||null;
 }
 
-// â”€â”€ toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3400);
 }
 
-// â”€â”€ custom confirm â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function confirmDialog(title, msg, onOk){
   document.getElementById('confirmTitle').textContent=title;
   document.getElementById('confirmMsg').textContent=msg;
@@ -357,36 +344,26 @@ function confirmDialog(title, msg, onOk){
   document.getElementById('confirmCancel').onclick=()=>overlay.classList.add('hidden');
 }
 
-// â”€â”€ month selector + date inputs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderMonthBar(){
   const isCurrent=viewIdx===months.length-1;
   const m=months[viewIdx];
-
-  // dropdown
   const sel=document.getElementById('monthSelect');
   sel.innerHTML=months.map((mo,i)=>
-    `<option value="${i}"${i===viewIdx?' selected':''}>${esc(mo.label)}${i===months.length-1?' â¬… Current':''}</option>`
+    `<option value="${i}"${i===viewIdx?' selected':''}>${esc(mo.label)}${i===months.length-1?' &#x2B05; Current':''}</option>`
   ).join('');
-
-  // badge
   const badge=document.getElementById('monthBadge');
   badge.textContent=isCurrent?'Current':'Purana';
   badge.className='month-badge'+(isCurrent?'':' readonly');
-
-  // date inputs
   const si=document.getElementById('startDateInput');
   const ei=document.getElementById('endDateInput');
   si.value=m.startDate||'';
   ei.value=m.endDate||'';
   si.disabled=!isCurrent;
   ei.disabled=!isCurrent;
-
-  // readonly banner
   document.getElementById('readonlyBanner').style.display=isCurrent?'none':'block';
   document.getElementById('addBtn').style.display=isCurrent?'':'none';
   document.getElementById('newMonthBtn').style.display=isCurrent?'':'none';
   document.getElementById('resetBtn').parentElement.style.display=isCurrent?'':'none';
-  // site name field
   const sni=document.getElementById('siteNameInput');
   sni.value=m.siteName||'';
   sni.disabled=!isCurrent;
@@ -419,14 +396,11 @@ document.getElementById('endDateInput').addEventListener('change',ev=>{
   updateMonthLabel();
 });
 
-// â”€â”€ main render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function render(){
   const month=months[viewIdx];
   const entries=month?month.entries:[];
   const ro=viewIdx!==months.length-1;
-
   renderMonthBar();
-
   const tbody=document.getElementById('tbody');
   if(entries.length===0){
     tbody.innerHTML=`<tr><td colspan="13" class="empty">Koi labour entry nahi hai.</td></tr>`;
@@ -434,7 +408,6 @@ function render(){
     updateSelBar();
     return;
   }
-
   tbody.innerHTML=entries.map(e=>{
     const rate=num(e.rate);
     const otPh=(e.otRate===''?(rate/8):num(e.otRate)).toFixed(0);
@@ -442,7 +415,7 @@ function render(){
     const ck=selectedIds.has(e.id)?'checked':'';
     const sc=selectedIds.has(e.id)?'is-selected':'';
     const ph=e.phone||'';
-    const photoSt=e.photo?`style="background-image:url('${e.photo}')"`:'' ;
+    const photoSt=e.photo?`style="background-image:url('${e.photo}')"`:'';
     const dis=ro?'disabled':'';
     return `
 <tr data-id="${e.id}" class="${sc}">
@@ -451,10 +424,10 @@ function render(){
     <input class="cell name-input" placeholder="Naam" value="${esc(e.name)}" data-field="name" ${dis}>
     <div class="phone-row">
       <input class="cell phone-input" type="tel" placeholder="Phone" value="${esc(ph)}" data-field="phone" ${dis}>
-      ${ph?`<a class="call-btn" href="tel:${esc(ph)}">ðŸ“ž</a>`:`<span class="call-btn disabled">ðŸ“ž</span>`}
+      ${ph?`<a class="call-btn" href="tel:${esc(ph)}">&#x1F4DE;</a>`:`<span class="call-btn disabled">&#x1F4DE;</span>`}
     </div>
   </td>
-  <td class="col-photo"><button class="photo-thumb" data-action="photo" ${dis} ${photoSt}>${e.photo?'':'ðŸ‘¤'}</button></td>
+  <td class="col-photo"><button class="photo-thumb" data-action="photo" ${dis} ${photoSt}>${e.photo?'':'&#x1F464;'}</button></td>
   <td class="col-num"><input class="cell" type="number" inputmode="decimal" placeholder="0" value="${e.din}" data-field="din" ${dis}></td>
   <td class="col-num"><input class="cell" type="number" inputmode="decimal" placeholder="0" value="${e.ot}" data-field="ot" ${dis}></td>
   <td class="col-num"><input class="cell" type="number" inputmode="decimal" placeholder="0" value="${e.rate}" data-field="rate" ${dis}></td>
@@ -464,14 +437,12 @@ function render(){
   <td class="col-due due-cell"><input class="cell" type="number" inputmode="decimal" placeholder="0" value="${e.previousDue}" data-field="previousDue" ${dis}></td>
   <td class="col-money net-cell"><div class="readonly-cell">${fmt(net)}</div></td>
   <td class="col-status"><button class="status-pill ${e.paid?'paid':'unpaid'}" data-action="togglePaid" ${dis}>${e.paid?'Paid':'Unpaid'}</button></td>
-  <td class="col-remove">${ro?'':`<button class="remove-btn" data-action="remove">âœ•</button>`}</td>
+  <td class="col-remove">${ro?'':`<button class="remove-btn" data-action="remove">&#x2715;</button>`}</td>
 </tr>`;
   }).join('');
-
   renderFooter();
   updateSelBar();
   updateSelectAll();
-
   tbody.querySelectorAll('input[data-action="select"]').forEach(c=>c.addEventListener('change',onSelect));
   if(!ro){
     tbody.querySelectorAll('input[data-field]').forEach(i=>i.addEventListener('input',onFieldInput));
@@ -507,7 +478,7 @@ function updateSelBar(){
   if(cnt===0){
     bar.classList.remove('active');
     document.getElementById('selCount').textContent='Total dekhne ke liye checkbox tick karein';
-    ['selTotal','selAdv','selNet'].forEach(id=>document.getElementById(id).textContent='â‚¹0');
+    ['selTotal','selAdv','selNet'].forEach(id=>document.getElementById(id).textContent='\u20B90');
     document.querySelectorAll('#selectionBar .value').forEach(v=>v.classList.add('dim'));
     return;
   }
@@ -530,7 +501,6 @@ function updateSelectAll(){
   all.checked=sc===entries.length; all.indeterminate=sc>0&&sc<entries.length;
 }
 
-// â”€â”€ row events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function onFieldInput(ev){
   const row=ev.target.closest('tr'), id=row.dataset.id, field=ev.target.dataset.field;
   const e=findEntry(id); if(!e) return;
@@ -579,7 +549,6 @@ document.getElementById('selectAll').addEventListener('change',ev=>{
   render();
 });
 
-// â”€â”€ photo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function onPhoto(ev){
   const row=ev.target.closest('tr'); pendingPhotoId=row.dataset.id;
   const inp=document.getElementById('globalPhotoInput'); inp.value=''; inp.click();
@@ -606,7 +575,6 @@ function resizeImg(src,maxW,maxH,cb){
   img.src=src;
 }
 
-// â”€â”€ site name + note â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById('siteNameInput').addEventListener('input',ev=>{
   const m=months[viewIdx]; if(!m||viewIdx!==months.length-1) return;
   m.siteName=ev.target.value; save();
@@ -616,7 +584,6 @@ document.getElementById('noteInput').addEventListener('input',ev=>{
   m.note=ev.target.value; save();
 });
 
-// â”€â”€ new month â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.getElementById('newMonthBtn').addEventListener('click',()=>{
   const cur=months[months.length-1];
   const unpaidCount=cur.entries.filter(e=>!e.paid).length;
@@ -646,7 +613,6 @@ document.getElementById('newMonthBtn').addEventListener('click',()=>{
   });
 });
 
-// â”€â”€ PDF â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function sharePdf(){
   const btn=document.getElementById('sharePdfBtn');
   if(typeof window.jspdf==='undefined'){ showToast('PDF library load nahi ho payi.'); return; }
@@ -657,23 +623,15 @@ async function sharePdf(){
     const marginX=40; let y=46;
     const month=months[viewIdx]; const entries=month?month.entries:[];
     doc.setFont('helvetica','bold'); doc.setFontSize(17);
-    doc.text('Mazdoori Khata â€” Labour Payment Register', marginX, y); y+=20;
-
-    // Site name (bold, prominent)
+    doc.text('Mazdoori Khata - Labour Payment Register', marginX, y); y+=20;
     if(month&&month.siteName&&month.siteName.trim()){
       doc.setFont('helvetica','bold'); doc.setFontSize(13);
       doc.text('Site / Kaam: '+month.siteName.trim(), marginX, y); y+=17;
     }
-
-    // Date range
     doc.setFont('helvetica','normal'); doc.setFontSize(11);
     doc.text('Tarikh: '+(month?month.label:''), marginX, y); y+=15;
-
-    // Generated date
     const genDate=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
     doc.text('PDF bani: '+genDate, marginX, y); y+=15;
-
-    // Note (italic, with line wrapping for long text)
     if(month&&month.note&&month.note.trim()){
       doc.setFontSize(10); doc.setFont('helvetica','italic');
       const pageW=doc.internal.pageSize.getWidth();
@@ -681,8 +639,6 @@ async function sharePdf(){
       noteLines.forEach(line=>{ doc.text(line, marginX, y); y+=13; });
       doc.setFont('helvetica','normal'); doc.setFontSize(11);
     }
-
-    // Divider line before table
     y+=6;
     doc.setLineWidth(0.5);
     doc.line(marginX, y, doc.internal.pageSize.getWidth()-marginX, y);
@@ -718,7 +674,6 @@ async function sharePdf(){
     const tv={name:'Total ('+entries.length+')',phone:'',din:'',ot:'',rate:'',otRate:'',
       total:fmtPdf(tp),advance:fmtPdf(ta),due:fmtPdf(td),net:fmtPdf(tn),status:''};
     let x=marginX; cols.forEach(c=>{doc.text(String(tv[c.k]),x,y);x+=c.w;});
-
     const blob=doc.output('blob');
     const file=new File([blob],'mazdoori-'+Date.now()+'.pdf',{type:'application/pdf'});
     let shared=false;
@@ -728,18 +683,13 @@ async function sharePdf(){
     }
     if(!shared){
       const url=URL.createObjectURL(blob); window.open(url,'_blank');
-      showToast('PDF khul gayi. â‹® menu se download karein phir WhatsApp par share karein.');
+      showToast('PDF khul gayi. Menu se download karein phir WhatsApp par share karein.');
       setTimeout(()=>URL.revokeObjectURL(url),60000);
     }
   }catch(err){ console.error(err); showToast('PDF banane mein dikkat aayi.'); }
-  finally{ btn.disabled=false; btn.textContent='ðŸ“¤ PDF Banayein aur Share Karein'; }
+  finally{ btn.disabled=false; btn.textContent='PDF Banayein aur Share Karein'; }
 }
 document.getElementById('sharePdfBtn').addEventListener('click',sharePdf);
-
-// â”€â”€ service worker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-}
 
 load();
 </script>
